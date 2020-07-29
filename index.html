@@ -1,10 +1,110 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-Hello World
-  </body>
+   <head>
+      <meta charset="utf-8">
+      <title>Assignment Final</title>
+      <script>
+         function getNumber(){
+           var input = document.getElementById("number");
+           var error = document.getElementById("error");
+           if(isNaN(input.value)){
+             input.style.border="2px solid red";
+             error.style.display="inline";
+             return -1;
+           }
+           else
+            {
+              input.style.border="2px solid black";
+              error.style.display="none";
+              return Number(input.value);
+            }
+
+         }
+
+         function getOption(){
+           var opt = document.getElementById("option");
+         var selected = opt.options[opt.selectedIndex].value;
+         return selected;
+         }
+
+         function calculate(){
+           var number = getNumber();
+           if(number != -1)
+           {
+           var option = Number(getOption());
+           switch(option){
+             case 1:
+             display("Perimeter = "+(Math.floor(2*3.14*number)).toFixed(2)+"<br><br> Area = "+(Math.floor(3.14*number*number)).toFixed(2));
+             break;
+             case 2:
+             display("Perimeter = "+(4*number)+"<br><br> Area = "+(number*number));
+             break;
+             case 3:
+             display(getPrimeUpto(number));
+             break;
+           }
+         }
+         }
+
+         function getPrimeUpto(n){
+           var result = "Prime Numbers upto "+n+" are:<br>";
+             for(var i=2;i<n;i++){
+               result+=(function (i){
+                 for(var j=2;j<=i/2;j++)
+                 if(i%j==0)
+                 return "";
+                 return i+"<br>";
+               })(i);
+             }
+             return result;
+           }
+
+         function display(data){
+           var display = document.getElementById("display");
+           display.innerHTML = "";
+           display.innerHTML = data;
+         }
+      </script>
+      <style>
+      body{
+        font-family:Arial,Sans-serif;
+      }
+      .box{
+        margin:50px;
+        padding:20px;
+        border:2px solid black;
+      }
+      .box #error{
+        font-size:12px;
+      }
+      .box #display{
+        padding:10px;
+        font-weight:bold;
+
+      }
+      .box input{
+        padding-left: 10px;
+        border-radius:5px;
+      }
+      </style>
+   </head>
+   <body>
+      <div class="box">
+         <label for="number">Enter Number:</label>
+         <input type="text" name="number" id="number">
+         <br>
+         <label for="error" id="error" style="display:none;color:red;">Please enter a valid number!</label>
+         <br>
+         <label for="option">Select Option:</label>
+         <select name="option" id="option">
+            <option value="1">Area and perimeter of circle</option>
+            <option value="2">Area and perimeter of rectangle</option>
+            <option value="3">Prime numbers upto given number</option>
+         </select>
+         <br>
+         <br>
+         <button onclick="calculate()">Calculate</button>
+         <p id="display"></p>
+      </div>
+   </body>
 </html>
